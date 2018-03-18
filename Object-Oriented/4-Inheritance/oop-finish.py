@@ -15,18 +15,22 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amt)
 
-
+# subclass of Employee
+# subclass will have all of the attributes and methods of Employee
 class Developer(Employee):
-    raise_amt = 1.10
+    raise_amt = 1.10 # change class variables won't change anything in the parent class
 
     def __init__(self, first, last, pay, prog_lang):
-        super().__init__(first, last, pay)
+        super().__init__(first, last, pay) # this is the most useful thing!!!
+        # Employee.__init__(self, first, last, pay) this will also work, but not good as the above one
         self.prog_lang = prog_lang
-
 
 class Manager(Employee):
 
-    def __init__(self, first, last, pay, employees=None):
+    def __init__(self, first, last, pay, employees = None): 
+        # pass in a list of employees, with default value None, 
+        # why not just pass in []?
+        # never want to pass mutuable data types. as list and dict, as default arguments.
         super().__init__(first, last, pay)
         if employees is None:
             self.employees = []
@@ -47,6 +51,12 @@ class Manager(Employee):
 
 dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
 dev_2 = Developer('Test', 'Employee', 60000, 'Java')
+
+print(help(Developer)) # help function print a lot useful info of class ===> method resolution order, methods, attr
+
+print(dev_1.pay)
+dev_1.apply_raise()
+print(dev_1.pay)
 
 mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
 
